@@ -1,2 +1,5 @@
 import './Example/Example.module.css';
-export { Example } from './Example/Example';
+import './Launchpad/Launchpad.module.css';
+
+export { Example } from './Example';
+export { Launchpad } from './Launchpad';
