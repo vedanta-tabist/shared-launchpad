@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import styles from './Launchpad.module.css';
 
 type LaunchpadProps = {
@@ -5,6 +7,34 @@ type LaunchpadProps = {
 };
 
 export const Launchpad: React.FC<LaunchpadProps> = ({ user }) => {
+  // const [permissions, setPermissions] = useState([]);
+  // const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     const fetchData = async () => {
+  //       try {
+  //         const token = user?.signInUserSession?.accessToken?.jwtToken;
+  //         const { data } = await axios.get(
+  //           `https://user-auth.dev.tabist.co.jp/api/v0.1/users/${user.username}/permissions`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         setPermissions(data);
+  //       } catch (err) {
+  //         console.error('API error:', err);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     };
+
+  //     fetchData();
+  //   }
+  // }, [user]);
+
   const cognitoData = Object.keys(localStorage).reduce(
     (obj: { [key in string]: string }, key) => {
       if (key.startsWith('CognitoIdentityServiceProvider')) {
@@ -18,6 +48,13 @@ export const Launchpad: React.FC<LaunchpadProps> = ({ user }) => {
 
   return (
     <div className={styles.wrapper}>
+      {/* <div>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div>{JSON.stringify(permissions)}</div>
+        )}
+      </div> */}
       <div>User data: {user ? JSON.stringify(user) : 'not exist'}</div>
       <div>
         Cognito data: {cognitoData ? JSON.stringify(cognitoData) : 'not exist'}
