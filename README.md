@@ -6,6 +6,7 @@ Shared Launchpad is a lightweight component library that serves as a navigation 
 
 ## Table of Contents
 
+- [Requirements](#requirements)
 - [Local development (quick guide)](#local-development-quick-guide)
   - [1. Build the library](#1-build-the-library)
   - [2. Test in a consumer app](#2-test-in-a-consumer-app-ums-dc-internal-etc)
@@ -14,6 +15,13 @@ Shared Launchpad is a lightweight component library that serves as a navigation 
 - [Cleanup / Production](#cleanup--production)
 
 ---
+
+## Requirements
+
+Consumer apps must have these library installed:
+
+- React version 17 or 18
+- Antd version 4 or 5
 
 ## Local development (quick guide)
 
