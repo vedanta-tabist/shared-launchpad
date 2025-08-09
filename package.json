@@ -22,7 +22,6 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "axios": ">=0.21.1 <2.0.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
