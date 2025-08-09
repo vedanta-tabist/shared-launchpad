@@ -11,7 +11,6 @@ Shared Launchpad is a lightweight component library that serves as a navigation 
   - [1. Build the library](#1-build-the-library)
   - [2. Test in a consumer app](#2-test-in-a-consumer-app-ums-dc-internal-etc)
   - [3. Update workflow — when you change the library](#3-update-workflow--when-you-change-the-library)
-- [Notes & troubleshooting](#notes--troubleshooting)
 - [Cleanup / Production](#cleanup--production)
 
 ---
@@ -54,11 +53,26 @@ This produces the `dist` (or configured) build output used by consumer apps.
 yarn install
 ```
 
-3. Run the consumer app (usual dev command):
+3. Import the component library:
+
+```js
+import { Launchpad } from 'shared-launchpad';
+import 'shared-launchpad/index.css';
+
+const { user } = useApplication();
+
+return <>{user?.signInUserSession && <Launchpad user={user} />}</>;
+```
+
+4. Run the consumer app (usual dev command):
 
 ```bash
 yarn dev
 ```
+
+5. Receive redirection from other app
+
+- Make sure your consumer app able to receive redirection from other app by implementing middleware code. (you can copy `middleware.ts` file from UMS or DC Internal repo)
 
 ---
 
@@ -72,7 +86,7 @@ Whenever you make changes to the component library, follow these steps in order 
 pnpm build
 ```
 
-2. In the consumer app, **remove the **`** entry from **`.
+2. In the consumer app, remove the library in `yarn.lock` file
 
 - Open `yarn.lock`, search for the block starting with `shared-launchpad@file:../shared-launchpad` and delete that entire block.
 
@@ -100,23 +114,7 @@ yarn dev
 
 ---
 
-## Notes & troubleshooting
-
-- Always run `pnpm build` in the library before reinstalling into the consumer app.
-- If styles or code don't appear updated:
-  - Confirm you rebuilt the library.
-  - Remove the `shared-launchpad` block from `yarn.lock` then run `yarn install`.
-  - Clear `.next` (and optionally browser cache) and restart the dev server.
-- Alternative local workflows (optional):
-  - `yarn link` / `pnpm link` can be used for faster iteration, but behavior may vary compared to the `file:` approach.
-
----
-
 ## Cleanup / production
 
 - Remove the `file:` entry from `package.json` in consumer apps before publishing or deploying.
 - Publish the library to your package registry and install the released version for production usage.
-
----
-
-If you want, I can also generate a short troubleshooting checklist or add Windows-specific command examples. Let me know!
