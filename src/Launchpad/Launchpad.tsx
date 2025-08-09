@@ -8,6 +8,7 @@ import UmsLogo from './components/icons/UmsLogo';
 import DcReservationLogo from './components/icons/DcReservationLogo';
 import DcCmsLogo from './components/icons/DcCmsLogo';
 import DcPdmLogo from './components/icons/DcPdmLogo';
+import { getEnvUrls } from './utils/getEnvUrls';
 
 type LaunchpadProps = {
   user: any;
@@ -18,18 +19,54 @@ export const Launchpad: React.FC<LaunchpadProps> = ({ user }) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const urls = getEnvUrls();
+
+  async function redirectTo(targetOrigin: string, targetPath: string) {
+    console.log(`Redirecting to ${targetOrigin}${targetPath}`);
+    // const formElement = document.querySelector('form');
+    // if (formElement) {
+    //   await form.setFieldValue('redirect_url', targetPath);
+    //   formElement.action = targetOrigin;
+    //   formElement.submit();
+    // }
+  }
 
   const menuItems = [
-    { label: 'PMS', icon: <PmsLogo size={24} /> },
-    { label: 'Dynamic Pricing', icon: <DpLogo size={24} /> },
-    { label: 'Review Management & Insights', icon: <AiLogo size={24} /> },
+    {
+      label: 'PMS',
+      icon: <PmsLogo size={24} />,
+      onClick: () => redirectTo(urls.PMS_URL, '/'),
+    },
+    {
+      label: 'Dynamic Pricing',
+      icon: <DpLogo size={24} />,
+      onClick: () => redirectTo(urls.DP_URL, '/'),
+    },
+    {
+      label: 'Review Management & Insights',
+      icon: <AiLogo size={24} />,
+      onClick: () => redirectTo(urls.REVIEW_MANAGEMENT_URL, '/'),
+    },
     {
       label: 'Booking Modification Console',
       icon: <DcReservationLogo size={24} />,
+      onClick: () => redirectTo(urls.DC_URL, '/reservation-management'),
     },
-    { label: 'Mini-site CMS', icon: <DcCmsLogo size={24} /> },
-    { label: 'Property Data Management', icon: <DcPdmLogo size={24} /> },
-    { label: 'User Management', icon: <UmsLogo size={24} /> },
+    {
+      label: 'Mini-site CMS',
+      icon: <DcCmsLogo size={24} />,
+      onClick: () => redirectTo(urls.DC_URL, '/mini-site'),
+    },
+    {
+      label: 'Property Data Management',
+      icon: <DcPdmLogo size={24} />,
+      onClick: () => redirectTo(urls.DC_URL, '/property-data-management'),
+    },
+    {
+      label: 'User Management',
+      icon: <UmsLogo size={24} />,
+      onClick: () => redirectTo(urls.UMS_URL, '/users'),
+    },
   ];
 
   const cognitoData = Object.keys(localStorage).reduce(
@@ -67,14 +104,17 @@ export const Launchpad: React.FC<LaunchpadProps> = ({ user }) => {
           <div className={styles.sectionTitle}>Products</div>
           <ul className={styles.list}>
             {menuItems.map((item, index) => (
-              <li key={index} className={styles.item}>
+              <li key={index} className={styles.item} onClick={item.onClick}>
                 <span className={styles.itemIcon}>{item.icon}</span>
                 <span>{item.label}</span>
               </li>
             ))}
           </ul>
-          <a className={styles.launchpadLink} href="#">
-            Go to Launchpad
+          <a
+            className={styles.launchpadLink}
+            onClick={() => redirectTo(urls.UMS_URL, '/')}
+          >
+            Go to Launchpad v1
           </a>
         </div>
       )}
