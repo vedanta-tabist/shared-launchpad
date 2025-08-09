@@ -29,6 +29,7 @@ Consumer apps must have these library installed:
 After editing code in the component library, run from the library root:
 
 ```bash
+pnpm install
 pnpm build
 ```
 

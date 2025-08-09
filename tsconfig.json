@@ -3,10 +3,10 @@
     "declaration": true,
     "declarationDir": "dist/types",
     "emitDeclarationOnly": false,
-    "jsx": "react-jsx",
+    "jsx": "react-jsx", // ✅ React 17+ JSX transform
     "importHelpers": true,
-    "module": "ESNext",
-    "target": "ES6",
+    "module": "ESNext", // ✅ Let bundler decide final module format
+    "target": "ES2017", // ✅ Modern enough for most environments
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -14,8 +14,18 @@
     "rootDir": "src",
     "isolatedModules": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noEmitOnError": true,
+
+    // ✅ Ensures default export works for CJS and ESM consumers
+    "allowUmdGlobalAccess": true,
+
+    // ✅ Helps tree-shaking when used with rollup/webpack
+    "preserveSymlinks": true
   },
   "include": ["src"],
-  "exclude": ["dist", "dist/types"]
+  "exclude": ["dist", "dist/types", "node_modules"],
+  "typeRoots": ["./src/types", "./node_modules/@types"]
 }

@@ -18,27 +18,43 @@
   "scripts": {
     "build": "rollup -c"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "antd": "^4.0.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    },
+    "antd": {
+      "optional": false
+    }
+  },
+  "dependenciesMeta": {
+    "react": {
+      "injected": true
+    },
+    "react-dom": {
+      "injected": true
+    },
+    "antd": {
+      "injected": true
+    }
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.0",
+    "@types/react": "*",
+    "@types/react-dom": "*",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.0.7",
     "postcss": "^8.5.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "antd": "^4.24.2",
     "rollup": "^4.42.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",

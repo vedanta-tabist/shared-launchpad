@@ -12,6 +12,7 @@ export default {
       file: 'dist/index.js',
       format: 'cjs',
       sourcemap: true,
+      exports: 'named', // <-- ensures proper exports for CommonJS
     },
     {
       file: 'dist/index.esm.js',
@@ -20,16 +21,38 @@ export default {
     },
   ],
   plugins: [
+    // Ensure peer deps are marked as external automatically
     peerDepsExternal(),
+
+    // Resolve non-peer deps
     resolve(),
+
+    // Convert CommonJS modules to ES6
     commonjs(),
-    typescript({ tsconfig: './tsconfig.json' }),
+
+    // Compile TypeScript
+    typescript({
+      tsconfig: './tsconfig.json',
+      declaration: true,
+      declarationDir: 'dist/types',
+      emitDeclarationOnly: false,
+    }),
+
+    // Handle CSS imports
     postcss({
       modules: true,
-      extract: true,
+      extract: 'index.css',
       minimize: true,
       sourceMap: true,
     }),
+
+    // Minify JS
     terser(),
   ],
+
+  // Force these packages to *never* be bundled, even if found in node_modules
+  external: (id) =>
+    ['react', 'react-dom', 'antd'].some(
+      (pkg) => id === pkg || id.startsWith(`${pkg}/`)
+    ),
 };
